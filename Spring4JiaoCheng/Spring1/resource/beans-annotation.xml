@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd">
+    <!--指定SpringIOC容器扫描的包-->
+    <!--可以通过resource-pattern指定扫描的资源 -->
+<!--    <context:component-scan base-package="com.atguigu.spring.annotation" resource-pattern="reponsitory/*.class"></context:component-scan>-->
+
+    <!--context:exclude-filter  子节点指定排除那些指定表达式额的组件-->
+    <!--context:include-filter 子节点指定包含那些表达式的组件，该子节点需要use-default-filters配合使用，如果只使用context:include-filter，不起作用 -->
+<!--    <context:component-scan base-package="com.atguigu.spring.annotation" use-default-filters="false">
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Repository"/>
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Repository"/>
+    </context:component-scan>-->
+
+    <context:component-scan base-package="com.atguigu.spring.annotation"></context:component-scan>
+
+</beans>

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:c="http://www.springframework.org/schema/c"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/util
+       http://www.springframework.org/schema/util/spring-util.xsd">
+    <bean id="sgtPepers" class="Spring2.soundsystem.SgtPepers"></bean>
+    <bean id="cdPlayer" class="Spring2.soundsystem.CdPlayer" c:_0-ref="sgtPepers"/>
+<!--    <bean id="compactDisc" class="Spring2.soundsystem.BlankDisc">
+        <constructor-arg value="Sgt.Pepper's Lonley's Hearts Club Band"/>
+        <constructor-arg value="The Bettles"/>
+    </bean>-->
+<!--    <bean id="compactDisc" class="Spring2.soundsystem.BlankDisc" c:artist="The Bettles" c:title="Sgt.Pepper's Lonley's Hearts Club Band">
+    </bean>-->
+<!--    <bean id="compactDisc" class="Spring2.soundsystem.BlankDisc" c:_0="The Bettles" c:_1="Sgt.Pepper's Lonley's Hearts Club Band">
+    </bean>-->
+<!--    <bean id="compactDisc" class="Spring2.soundsystem.BlankDisc" c:_="www"></bean>-->
+    <!--不需要引啥标签啥的-->
+    <bean id="compactDisc1" class="Spring2.soundsystem.BlankDisc">
+        <constructor-arg value="QiLiXiang"/>
+        <constructor-arg value="Jay Zhou"/>
+        <constructor-arg>
+            <list>
+                <value>Dao Xiang</value>
+                <value>Qi Li xiang</value>
+                <value>ju hua tai</value>
+            </list>
+        </constructor-arg>
+    </bean>
+    <bean id="compactDisc2" class="Spring2.soundsystem.BlankDisc">
+        <constructor-arg value="Jiang Nan"/>
+        <constructor-arg value="J J"/>
+        <constructor-arg>
+            <list>
+                <value>Cao Cao</value>
+                <value>Jiang Nan</value>
+                <value>Zhui Le</value>
+            </list>
+        </constructor-arg>
+    </bean>
+    <bean id="discography" class="Spring2.soundsystem.Discography">
+        <constructor-arg value="MM"/>
+        <constructor-arg>
+            <list>
+                <ref bean="compactDisc1"/>
+                <ref bean="compactDisc2"/>
+            </list>
+        </constructor-arg>
+    </bean>
+    <bean id="compactDisc3" class="Spring2.soundsystem.BlankDisc2">
+        <constructor-arg value="QiLiXiang"/>
+        <constructor-arg value="Jay Zhou"/>
+        <constructor-arg>
+            <set>
+                <value>Dao Xiang</value>
+                <value>Qi Li xiang</value>
+                <value>ju hua tai</value>
+                <value>ju hua tai</value>
+                <value>ju hua tai</value>
+                <value>ju hua tai</value>
+            </set>
+        </constructor-arg>
+    </bean>
+    <bean id="cdPlayer2" class="Spring2.soundsystem2.CdPlayer" p:compactDisc-ref="compactDisc1"></bean>
+    <bean id="reallyBlankDisc" class="Spring2.soundsystem2.BlankDisc">
+        <property name="artist" value="Jay Zhou"/>
+        <property name="title" value="Shuang Jie Gun"/>
+        <property name="tracks">
+            <list>
+                <value>Dao Xiang</value>
+                <value>Qi Li xiang</value>
+                <value>ju hua tai</value>
+            </list>
+        </property>
+    </bean>
+    <util:list id="list1">
+        <value>Dao Xiang</value>
+        <value>Qi Li xiang</value>
+        <value>ju hua tai</value>
+    </util:list>
+    <bean id="reallyBlankDisc2" class="Spring2.soundsystem2.BlankDisc" p:artist="Jay Zhou" p:title="Shuang Jie Gun" p:tracks-ref="list1">
+    </bean>
+</beans>

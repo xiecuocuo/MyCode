@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/jee/spring-beans.xsd
+    http://www.springframework.org/schema/aop
+    http://www.springframework.org/schema/beans/spring-aop.xsd">
+    <!--默认情况下是基于cglib的动态代理-->
+    <bean id="notePad" class="com.springshizhan4.package4.NotePad" scope="session">
+        <!--proxy-target-class设为false,后则是基于接口的动态代理-->
+        <aop:scoped-proxy proxy-target-class="false"/>
+    </bean>
+</beans>
