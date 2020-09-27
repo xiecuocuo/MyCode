@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+  <!--  &lt;!&ndash;注册myDateConverter&ndash;&gt;
+    <bean id="myDateConverter" class="com.baizhidu.converter.MyDateConverter">
+        <property name="pattern" value="yyyy-mm-dd"/>
+    </bean>
+    &lt;!&ndash;注册转换器:告知Spring框架，我们所创建的MyDateConverter是一个类型转换器&ndash;&gt;
+    <bean id="conversionService" class="org.springframework.context.support.ConversionServiceFactoryBean">
+        <property name="converters">
+            <set>
+                <ref bean="myDateConverter"/>
+            </set>
+        </property>
+    </bean>-->
+
+    <bean id="person" class="com.baizhidu.converter.Person">
+        <property name="name" value="YNF"/>
+        <property name="birthDay" value="1992/01/17"/>
+    </bean>
+</beans>

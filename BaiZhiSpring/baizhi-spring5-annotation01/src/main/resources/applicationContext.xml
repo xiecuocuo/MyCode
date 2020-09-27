@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:content="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+    <content:component-scan base-package="com.baizhiedu"></content:component-scan>
+    <!--<content:component-scan base-package="com.baizhiedu" use-default-filters="false">
+        <content:include-filter type="assignable" expression="com.baizhiedu.test.User"/>
+        &lt;!&ndash;
+            type:assignable:排除特定的类型，不进行扫描
+            type:aspect:切入点表达式
+                    包切入点：com.baizhiedu.bean..*
+                    类切入点：*..User
+            type:regx 正则表达式
+            type:custom 自定义排除策略，一般用于框架底层开发
+        &ndash;&gt;
+    </content:component-scan>-->
+<!--    <content:property-placeholder location="classpath:User.properties">-->
+    <bean id="userService" class="com.baizhiedu.service.UserServiceImpl">
+        <property name="userDAO" ref="userDAO"/>
+    </bean>
+</beans>

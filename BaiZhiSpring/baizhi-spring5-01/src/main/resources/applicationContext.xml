@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+<!--    &lt;!&ndash;class为完整类名，id为全局唯一标识符&ndash;&gt;
+    <bean class="com.baizhidu.basic.Person" id="person"/>
+    &lt;!&ndash;class为完整类名，id为全局唯一标识符&ndash;&gt;
+    <bean class="com.baizhidu.basic.Person" id="person1"/>-->
+    <bean class="com.baizhidu.basic.Person" name="p1,p2,p3" id="person" p:name="abc" p:id="1">
+        <property name="p">
+            <props>
+                <prop key="key1">value1</prop>
+                <prop key="key2">value2</prop>
+                <prop key="key3">value3</prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean id="userService" class="com.baizhidu.basic.UserServiceImpl">
+        <property name="userDAO" ref="userDAO"></property>
+    </bean>
+
+    <bean id="userDAO" class="com.baizhidu.basic.UserDAOImpl"/>
+    <bean id="userService1" class="com.baizhidu.basic.UserServiceImpl" p:userDAO-ref="userDAO">
+    </bean>
+
+    <bean id="customer" class="com.baizhidu.constructor.Customer">
+        <constructor-arg value="1" type="int"/>
+    </bean>
+
+    <bean id="conn" class="com.baizhidu.factorybean.ConnectionFactoryBean">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+        <property name="url" value="jdbc:mysql://localhost:3306/db1?useSSL=false"/>
+        <property name="userName" value="root"/>
+        <property name="password" value="ynf"/>
+    </bean>
+
+    <bean id="connectionFactory2" class="com.baizhidu.factory.ConnectionFactory">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+        <property name="url" value="jdbc:mysql://localhost:3306/db1?useSSL=false"/>
+        <property name="userName" value="root"/>
+        <property name="password" value="ynf"/>
+    </bean>
+    <bean id="conn1" class="java.sql.Connection" factory-bean="connectionFactory2" factory-method="getConnection"/>
+    <bean id="conn2" class="com.baizhidu.factory.StaticConnectionFactory" factory-method="getConnection"/>
+
+    <bean id="product" class="com.baizhidu.life.Product" init-method="initProduct" destroy-method="close">
+        <property name="name" value="goods"/>
+    </bean>
+</beans>

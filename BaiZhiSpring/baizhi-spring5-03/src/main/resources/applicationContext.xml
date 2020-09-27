@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+<!--    整合mybatis-->
+    <!--配置DataSource-->
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
+        <property name="url" value="jdbc:mysql://localhost:3306/db1"/>
+        <property name="username" value="root"/>
+        <property name="password" value="ynf"/>
+    </bean>
+    <!--配置SqlSessionFactory-->
+    <bean id="sessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <!--配置数据源-->
+        <property name="dataSource" ref="dataSource"/>
+        <!--配置实体类别名-->
+        <property name="typeAliasesPackage" value="com.baizhiedu.entiry"/>
+        <!--注册mapper接口-->
+        <property name="mapperLocations">
+            <list>
+                <value>classpath:mapper/*Mapper.xml</value>
+            </list>
+        </property>
+    </bean>
+    <!--配置MapperScannerConfigure-->
+    <bean id="mapperScannerConfigurer" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="sqlSessionFactoryBeanName" value="sessionFactory"/>
+        <!--配置用于生成DAO类-->
+        <property name="basePackage" value="com.baizhiedu.dao"/>
+    </bean>
+<!--  Spring事务配置  -->
+    <bean id="dataSourceTransactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+    <!--注意：引入的schema结尾一定得是tx结尾的-->
+    <tx:annotation-driven transaction-manager="dataSourceTransactionManager" proxy-target-class="true"/>
+    <!--userDao是由mapperScannerConfigurer自动扫描创建-->
+    <bean id="userService2" class="com.baizhiedu.service.UserServiceImpl2">
+        <property name="userDao" ref="userDao"/>
+    </bean>
+    <!--编程时候，service中复制进行增删改操作的方法，都以modify开头。查询操作，命名无所谓-->
+    <tx:advice id="txAdvice" transaction-manager="dataSourceTransactionManager">
+        <tx:attributes>
+            <tx:method name="register"/>
+            <tx:method name="modify*"/>
+            <tx:method name="*" propagation="SUPPORTS" read-only="true"/>
+        </tx:attributes>
+    </tx:advice>
+    <!--应用过程中，service放置带service包中-->
+    <aop:config>
+        <aop:pointcut id="pc" expression="execution(* com.baizhiedu.service..*.*(..))"/>
+        <aop:advisor advice-ref="txAdvice" pointcut-ref="pc"/>
+    </aop:config>
+</beans>
