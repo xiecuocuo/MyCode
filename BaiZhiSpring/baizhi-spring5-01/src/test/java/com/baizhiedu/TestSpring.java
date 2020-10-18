@@ -38,29 +38,32 @@ public class TestSpring {
     public void test3(){
         ApplicationContext applicationContext=new ClassPathXmlApplicationContext("applicationContext.xml");
         /*
-        getBean方法的重载方法：
+        * getBean方法的重载方法：
+        * getBean(String str)
+        * getBean(String str,Class class)
+        * getBean(Class class)
         * */
-        Person person=applicationContext.getBean("person",Person.class);//通过这种方式获取bean不需要强制类型转换
-        person=applicationContext.getBean(Person.class);//该方法必须保证通过类型获取的组件有且只有一个,通过这种方式获取bean不需要强制类型转换
+        Person person=applicationContext.getBean("person",Person.class);//通过这种方式获取Bean不需要强制类型转换
+        person=applicationContext.getBean(Person.class);
+
         //获取Spring工厂所有Bean标签的id值
         String[] beanNames1=applicationContext.getBeanDefinitionNames();
         System.out.println(Arrays.toString(beanNames1));
 
-        //通过类型获取Spring配置文件中，对应的id值
+        //通过类型获取Spring配置文件中，对应的id的值
         String[] beanNames2=applicationContext.getBeanNamesForType(Person.class);
-        System.out.println(Arrays.toString(beanNames2));
+        System.out.println(beanNames2);
 
         //用于判断是否存在对应id值的bean
         boolean flag=applicationContext.containsBeanDefinition("person");
         System.out.println(flag);
 
         //用于判断是否存在对应id值的bean
-        flag=applicationContext.containsBean("person");
-        System.out.println(flag);
-
-        /*containsBean和containsBeanDefinition是有区别的：
-        containsBean:可以判断id,也可以判断name
-        containsBeanDefinition:只能判断id
+        boolean flag1=applicationContext.containsBean("person");
+        /*
+        * containsBean和containsBeanDefinition是有区别的：
+        * containsBean可以判断id，也可以判断name
+        * containsBeanDefinitions只能判断id
         * */
     }
     @Test
